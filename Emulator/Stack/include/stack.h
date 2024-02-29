@@ -5,7 +5,11 @@ namespace myStack {
     template<class T>
     class stack {
         public:
-            stack<T>() {}
+            stack<T>() {
+                if (std::is_pointer<T>::value) {
+                    throw std::invalid_argument("Argument mustn't be pointer");
+                }
+            }
             ~stack<T>() {
                 delete[] s;
             }

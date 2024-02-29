@@ -35,16 +35,11 @@ TEST(CheckPushCopy, 3) {
     myStack::stack<std::string> s;
     std::string text = "some text";
     s.push(text);
+    s.push(text);
+    s.push(text);
     EXPECT_EQ(s.pop(), text);
 
-    myStack::stack<int*> s2;
-    int* a = new int;
-
-    *a = 1303;
-    s2.push(a);
-    *a = 1304;
-
-    EXPECT_EQ(*s2.pop(), *a);
+    EXPECT_THROW(myStack::stack<int*> s2, std::invalid_argument);
 }
 
 
