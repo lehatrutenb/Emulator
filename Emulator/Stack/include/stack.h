@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <type_traits>
 
 namespace myStack {
     template<class T>
@@ -6,7 +7,7 @@ namespace myStack {
         public:
             stack<T>() {}
             ~stack<T>() {
-                free(s);
+                delete[] s;
             }
 
             stack<T>(const stack<T>& o) : ind(o.ind), cap(o.cap) {

@@ -47,7 +47,7 @@ TEST(CheckPushCopy, 3) {
     EXPECT_EQ(*s2.pop(), *a);
 }
 
-/*
+
 TEST(CheckTopPopException, 1) {
     myStack::stack<int> s;
 
@@ -60,7 +60,7 @@ TEST(CheckTopPopException, 1) {
     EXPECT_THROW(s.top(), std::out_of_range);
     EXPECT_THROW(s.pop(), std::out_of_range);
 }
-*/
+
 
 TEST(CheckCopy, 1) {
     myStack::stack<int> s;
@@ -115,7 +115,6 @@ TEST(CheckMove, 1) {
     EXPECT_EQ(s3.pop(), 2);
 }
 
-/*
 TEST(CheckMoveRights, 1) {
     myStack::stack<int> s;
     s.push(1);
@@ -124,7 +123,6 @@ TEST(CheckMoveRights, 1) {
     EXPECT_THROW(s.pop(), std::out_of_range);
     EXPECT_THROW(s.top(), std::out_of_range);
 }
-*/
 
 int main(int argc, char **argv) {
     srand(1303);

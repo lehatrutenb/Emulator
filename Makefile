@@ -1,6 +1,3 @@
-.ONESHELL:
-.SHELLFLAGS += -e
-
 CreateBuildLib:
 	-mkdir Emulator_build
 	cd Emulator_build && cmake ../Emulator
