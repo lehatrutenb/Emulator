@@ -41,7 +41,6 @@ class Emulator {
             }
             file.close();
 
-            std::cout << text << std::endl;
             return text;
         }
 };

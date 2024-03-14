@@ -13,7 +13,6 @@ namespace preprocessor {
     class Preprocessor {
         public:
             program_t preprocess(const std::string&& input) {
-                //std::cout << input << std::endl;
                 program_t program;
                 auto parser = tokenparser::TokenParser(input);
                 tokenparser::Token token = parser.parse();
@@ -21,17 +20,15 @@ namespace preprocessor {
                 int labelIndex = 0;
                 std::map<std::string, int> label_convert;
                 while (token.type != tokenparser::TokenType::END_OF_FILE) {
-                    //std::cout << token.val << std::endl;
                     std::pair<bool, int> reg_check = check_for_reg(token.val);
                     if (reg_check.first) {
-                        //std::cout << 1 << std::endl;
                         program.push_back(reg_check.second);
                     } else if (convert.find(token.val) != convert.end()) {
                         program.push_back(convert[token.val]);
                     }  else if (token.type == tokenparser::TokenType::INTEGER) {
                         program.push_back(std::stoi(token.val));
                     } else if (token.type == tokenparser::TokenType::WORD) {
-                        if (label_convert.find(token.val) != label_convert.end()) {
+                        if (label_convert.find(token.val) == label_convert.end()) {
                             label_convert[token.val] = labelIndex++;
                         }
                         program.push_back(label_convert[token.val]);
@@ -41,31 +38,12 @@ namespace preprocessor {
                     tokens.push_back(token);
                 }
 
-                for (int i = 0; i < tokens.size();i++) {
-                    if (tokens[i].type == tokenparser::TokenType::WORD) {
-                        std::cout << "word" << std::endl;
-                    }
-                    if (tokens[i].type == tokenparser::TokenType::DELIMITER) {
-                        std::cout << "DELIM" << std::endl;
-                    }
-                    if (tokens[i].type == tokenparser::TokenType::END_OF_FILE) {
-                        std::cout << "END" << std::endl;
-                    }
-                }
-
                 if (!check_begin_end(std::move(tokens))) {
                     throw std::invalid_argument("Program must begin with BEGIN and end with END commands");
                 }
 
-                for (int i = 0; i < program.size(); i++) {
-                    if (std::holds_alternative<int>(program[i])) {
-                        continue;
-                    }
-                    if (std::get<commands::Command*>(program[i])->GetArgsAmt() == 1) {
-                        if (i + 1 >= program.size() || !std::holds_alternative<int>(program[i + 1])) {
-                            throw std::invalid_argument("Don't have correct args after command");
-                        }
-                    }
+                if (!check_args_amount(std::move(program))) {
+                    throw std::invalid_argument("Don't have correct args after command");
                 }
 
                 return program;
@@ -101,6 +79,20 @@ namespace preprocessor {
                     }
                 }
                 return firstNonDelim + 1 < tokens.size() && lastNonDelim - 1 >= 0 && tokens[firstNonDelim + 1].val == "BEGIN" && tokens[lastNonDelim - 1].val == "END";
+            }
+
+            bool check_args_amount(const program_t&& program) {
+                for (int i = 0; i < program.size(); i++) {
+                    if (std::holds_alternative<int>(program[i])) {
+                        continue;
+                    }
+                    if (std::get<commands::Command*>(program[i])->GetArgsAmt() == 1) {
+                        if (i + 1 >= program.size() || !std::holds_alternative<int>(program[i + 1])) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
             }
 
             std::map<std::string, commands::Command*> convert = {

@@ -15,13 +15,13 @@ namespace myStack {
                 delete[] s;
             }
 
-            stack<T>(const stack<T>& o) : ind(o.ind), cap(o.cap) { // stack()??????????????
+            stack<T>(const stack<T>& o) : ind(o.ind), cap(o.cap) {
                 s = new T[o.cap];
                 memcpy(s, o.s, ind * sizeof(T));
             }
 
             stack<T>(stack<T>&& o) noexcept : ind(o.ind), cap(o.cap), s(o.s) {
-                o.s = nullptr; // std::swap?
+                o.s = nullptr;
             }
 
             stack<T>& operator=(const stack<T>& o) {
@@ -44,6 +44,14 @@ namespace myStack {
                 return *this;
             }
 
+            void resize() {
+                T* tmp = new T[this->cap * 2]; // ToDo: move to resize
+                memcpy(tmp, this->s, ind * sizeof(T));
+                delete[] this->s;
+                this->s = tmp;
+                this->cap *= 2;
+            }
+
             void push(T& x) {
                 if (this->ind == this->cap) {
                     if (this->cap == 0) {
@@ -53,12 +61,7 @@ namespace myStack {
                         return;
                     }
 
-                    T* tmp = new T[this->cap * 2]; // ToDo: move to resize
-                    memcpy(tmp, this->s, ind * sizeof(T));
-                    delete[] this->s;
-                    this->s = tmp;
-
-                    this->cap *= 2;
+                    resize();
                 }
                 this->s[this->ind++] = x;
             }
