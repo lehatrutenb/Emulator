@@ -1,0 +1,415 @@
+BEGIN
+
+PUSH 1
+PUSH 1
+PUSH 1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+POPR reg0
+POPR reg1
+PUSHR reg0
+PUSHR reg0
+PUSHR reg1
+ADD
+POPR reg1
+PUSHR reg1
+PUSHR reg1
+OUT
+
+END

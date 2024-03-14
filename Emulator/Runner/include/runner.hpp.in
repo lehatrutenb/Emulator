@@ -1,0 +1,1 @@
+#cmakedefine PATH_TO_PROGRAM "@PATH_TO_PROGRAM@"
