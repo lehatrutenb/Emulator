@@ -45,7 +45,7 @@ namespace myStack {
             }
 
             void resize() {
-                T* tmp = new T[this->cap * 2]; // ToDo: move to resize
+                T* tmp = new T[this->cap * 2];
                 memcpy(tmp, this->s, ind * sizeof(T));
                 delete[] this->s;
                 this->s = tmp;

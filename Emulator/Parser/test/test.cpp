@@ -1,10 +1,9 @@
-#include "gtest/gtest.h" // cmake see, but vs code no
+#include "gtest/gtest.h"
 
 #include <cstdio>
 #include <random>
 #include <vector>
 #include <string>
-
 
 #include "../src/parser.cpp"
 
@@ -29,7 +28,19 @@ TEST(CheckTypesRandomString, 0) {
 
     auto parser = TokenParser(input);
 
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 14; i++) {
+        EXPECT_EQ(parser.parse().type, correct[i]);
+    }
+}
+
+TEST(CheckTypesIntegers, 1) {
+    std::string input = "BEGIN 1312 -123 +123 END";
+    TokenType correct[] = {TokenType::WORD, TokenType::DELIMITER, TokenType::INTEGER, TokenType::DELIMITER, TokenType::INTEGER,
+                           TokenType::DELIMITER, TokenType::INTEGER, TokenType::DELIMITER, TokenType::WORD, TokenType::END_OF_FILE};
+
+    auto parser = TokenParser(input);
+
+    for (int i = 0; i < 10; i++) {
         EXPECT_EQ(parser.parse().type, correct[i]);
     }
 }
