@@ -52,9 +52,9 @@ namespace preprocessor {
                     program[label.first] = label_convert[label.second];
                 }
 
-                //if (!check_begin_end(std::move(tokens))) { TODO add later (now removed because of funcs)
-                    //throw std::invalid_argument("Program must begin with BEGIN and end with END commands");
-                //}
+                if (!check_begin_end(std::move(tokens))) {
+                    throw std::invalid_argument("Program must have BEGIN and END commands");
+                }
 
                 if (!check_args_amount(std::move(program))) {
                     throw std::invalid_argument("Don't have correct args after command");
@@ -79,24 +79,23 @@ namespace preprocessor {
                 if (tokens.empty()) {
                     return false;
                 }
-                int firstNonDelim = -1;
-                int lastNonDelim = tokens.size() - 1;
-                for (;firstNonDelim + 1 < tokens.size(); firstNonDelim++) {
-                    if (tokens[firstNonDelim + 1].type != tokenparser::TokenType::DELIMITER) {
-                        break;
+
+                int begin_ind = -1, end_ind = -1;
+                for (int i = 0; i < tokens.size(); i++) {
+                    if (tokens[i].val == "BEGIN") {
+                        if (begin_ind != -1) {
+                            return false;
+                        }
+                        begin_ind = i;
+                    }
+                    if (tokens[i].val == "END") {
+                        if (end_ind != -1) {
+                            return false;
+                        }
+                        end_ind = i;
                     }
                 }
-                for (;lastNonDelim - 1 >= 0; lastNonDelim--) {
-                    if (tokens[lastNonDelim - 1].type != tokenparser::TokenType::DELIMITER) {
-                        break;
-                    }
-                }
-                for (int i = firstNonDelim + 2; i < lastNonDelim - 1; i++) {
-                    if (tokens[i].val == "BEGIN" || tokens[i].val == "END") {
-                        return false;
-                    }
-                }
-                return firstNonDelim + 1 < tokens.size() && lastNonDelim - 1 >= 0 && tokens[firstNonDelim + 1].val == "BEGIN" && tokens[lastNonDelim - 1].val == "END";
+                return begin_ind != -1 && end_ind != -1 && begin_ind < end_ind;
             }
 
             bool check_tokens_undefined(const std::vector<tokenparser::Token>&& tokens) {

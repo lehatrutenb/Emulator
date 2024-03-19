@@ -40,6 +40,26 @@ TEST(CheckPushCopy, 3) {
     EXPECT_THROW(myStack::stack<int*> s2, std::invalid_argument);
 }
 
+TEST(CheckSize, 1) {
+    myStack::stack<int> s;
+    s.push(1);
+    EXPECT_EQ(s.size(), 1);
+    s.pop();
+    EXPECT_EQ(s.size(), 0);
+}
+
+TEST(CheckSize, 2) {
+    myStack::stack<int> s;
+    s.push(1);
+    EXPECT_EQ(s.size(), 1);
+    s.push(2);
+    EXPECT_EQ(s.size(), 2);
+    s.push(1);
+    EXPECT_EQ(s.size(), 3);
+    s.pop();
+    EXPECT_EQ(s.size(), 2);
+}
+
 
 TEST(CheckTopPopException, 1) {
     myStack::stack<int> s;

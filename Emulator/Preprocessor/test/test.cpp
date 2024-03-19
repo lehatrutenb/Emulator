@@ -53,10 +53,10 @@ TEST(CheckLabelIndexing, 0) {
     Preprocessor preprocessor;
     std::vector<std::variant<std::shared_ptr<commands::Command>, int>> results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1]))};
     
-    EXPECT_EQ(std::get<int>(results[0][1]), 1);
+    EXPECT_EQ(std::get<int>(results[0][1]), 4);
     EXPECT_EQ(std::get<int>(results[0][2]), 2);
     EXPECT_EQ(std::get<int>(results[0][3]), 3);
-    EXPECT_EQ(std::get<int>(results[0][4]), 1);
+    EXPECT_EQ(std::get<int>(results[0][4]), 4);
 
     EXPECT_EQ(std::get<int>(results[1][1]), 1);
     EXPECT_EQ(std::get<int>(results[1][4]), 4);
