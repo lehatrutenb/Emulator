@@ -14,17 +14,17 @@ TEST(CheckSimplePrograms, 0) {
     std::string inputs[] = {"BEGIN\nEND", "BEGIN END\0"};
     
     Preprocessor preprocessor;
-    program_t results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1]))};
+    std::vector<std::variant<std::shared_ptr<commands::Command>, int>> results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1]))};
     
     EXPECT_EQ(results[0].size(), 2);
     EXPECT_EQ(results[1].size(), 2);
     
-    EXPECT_TRUE(std::holds_alternative<commands::Command*>(results[0][0]));
-    EXPECT_TRUE(std::holds_alternative<commands::Command*>(results[1][0]));
+    EXPECT_TRUE(std::holds_alternative<std::shared_ptr<commands::Command>>(results[0][0]));
+    EXPECT_TRUE(std::holds_alternative<std::shared_ptr<commands::Command>>(results[1][0]));
 
     for (int i = 0; i < 2; i++) {
-        EXPECT_TRUE(std::holds_alternative<commands::Command*>(results[0][i]));
-        EXPECT_TRUE(std::holds_alternative<commands::Command*>(results[1][i]));
+        EXPECT_TRUE(std::holds_alternative<std::shared_ptr<commands::Command>>(results[0][i]));
+        EXPECT_TRUE(std::holds_alternative<std::shared_ptr<commands::Command>>(results[1][i]));
     }
 }
 
@@ -48,24 +48,25 @@ TEST(CheckBadProgram, ArgsAmount) {
 }
 
 TEST(CheckLabelIndexing, 0) {
-    std::string inputs[] = {"BEGIN label1 label2 label3 END", "BEGIN hahalabel PUSH 1 label2 END"};
+    std::string inputs[] = {"BEGIN label1 label2 label3 label1 END", "BEGIN hahalabel PUSH 1 label2 END"};
     
     Preprocessor preprocessor;
-    program_t results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1]))};
+    std::vector<std::variant<std::shared_ptr<commands::Command>, int>> results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1]))};
     
-    EXPECT_EQ(std::get<int>(results[0][1]), 0);
-    EXPECT_EQ(std::get<int>(results[0][2]), 1);
-    EXPECT_EQ(std::get<int>(results[0][3]), 2);
+    EXPECT_EQ(std::get<int>(results[0][1]), 1);
+    EXPECT_EQ(std::get<int>(results[0][2]), 2);
+    EXPECT_EQ(std::get<int>(results[0][3]), 3);
+    EXPECT_EQ(std::get<int>(results[0][4]), 1);
 
-    EXPECT_EQ(std::get<int>(results[1][1]), 0);
-    EXPECT_EQ(std::get<int>(results[1][3]), 1);
+    EXPECT_EQ(std::get<int>(results[1][1]), 1);
+    EXPECT_EQ(std::get<int>(results[1][4]), 4);
 }
 
 TEST(CheckReg, Indexing) {
     std::string inputs[] = {"BEGIN reg0 reg1 reg2 reg3 END"};
     
     Preprocessor preprocessor;
-    program_t results[] = {preprocessor.preprocess(std::move(inputs[0]))};
+    std::vector<std::variant<std::shared_ptr<commands::Command>, int>> results[] = {preprocessor.preprocess(std::move(inputs[0]))};
     
     EXPECT_EQ(std::get<int>(results[0][1]), 0);
     EXPECT_EQ(std::get<int>(results[0][2]), 1);
@@ -77,11 +78,11 @@ TEST(CheckReg, BadIndexing) {
     std::string inputs[] = {"BEGIN reg4 END", "BEGIN reg END",  "BEGIN reg-1 END"};
     
     Preprocessor preprocessor;
-    program_t results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1])), preprocessor.preprocess(std::move(inputs[2]))};
+    std::vector<std::variant<std::shared_ptr<commands::Command>, int>> results[] = {preprocessor.preprocess(std::move(inputs[0])), preprocessor.preprocess(std::move(inputs[1])), preprocessor.preprocess(std::move(inputs[2]))};
     
-    EXPECT_EQ(std::get<int>(results[0][1]), 0); // like a label
-    EXPECT_EQ(std::get<int>(results[1][1]), 0);
-    EXPECT_EQ(std::get<int>(results[2][1]), 0);
+    EXPECT_EQ(std::get<int>(results[0][1]), 1); // like a label
+    EXPECT_EQ(std::get<int>(results[1][1]), 1);
+    EXPECT_EQ(std::get<int>(results[2][1]), 1);
 }
 
 

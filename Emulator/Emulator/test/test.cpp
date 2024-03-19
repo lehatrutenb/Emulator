@@ -82,19 +82,16 @@ TEST(CheckSmallProgramm, 3) {
     EXPECT_EQ(output.str(), "95");
 }
 
-/*
+
 TEST(CheckIn, 0) {
     std::ofstream file("input");
     file << "BEGIN IN OUT END";
     file.close();
 
-    std::ostringstream input;
-    input.write("123 123", sizeof("123 123"));
+    std::istringstream input;
+    input.str("123");
     auto cin_buff = std::cin.rdbuf();
     std::cin.rdbuf(input.rdbuf());
-
-    int x;
-    std::cin >> x;
     
     std::ostringstream output;
     auto cout_buff = std::cout.rdbuf();
@@ -106,12 +103,10 @@ TEST(CheckIn, 0) {
     std::cout.rdbuf(cout_buff);
     std::cin.rdbuf(cin_buff);
 
-    std::cout << x << std::endl;
-
     std::cout << output.str() << std::endl;
 
     EXPECT_EQ(output.str(), "123");
-}*/
+}
 
 int main(int argc, char **argv) {
     srand(1303);

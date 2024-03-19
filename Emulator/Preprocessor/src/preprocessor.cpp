@@ -8,42 +8,60 @@
 #include "../../Parser/src/parser.cpp"
 
 namespace preprocessor {
-    typedef std::vector<std::variant<commands::Command*, int>> program_t;
-
     class Preprocessor {
         public:
-            program_t preprocess(const std::string&& input) {
-                program_t program;
+            std::vector<std::variant<std::shared_ptr<commands::Command>, int>> preprocess(const std::string&& input) {
+                std::vector<std::variant<std::shared_ptr<commands::Command>, int>> program;
                 auto parser = tokenparser::TokenParser(input);
                 tokenparser::Token token = parser.parse();
                 std::vector<tokenparser::Token> tokens = {token};
-                int labelIndex = 0;
+                std::vector<std::pair<int, std::string>> labels_index_value;
+
                 std::map<std::string, int> label_convert;
+                int need_args_amt = 0;
                 while (token.type != tokenparser::TokenType::END_OF_FILE) {
                     std::pair<bool, int> reg_check = check_for_reg(token.val);
                     if (reg_check.first) {
                         program.push_back(reg_check.second);
+                        need_args_amt--;
                     } else if (convert.find(token.val) != convert.end()) {
                         program.push_back(convert[token.val]);
+                        need_args_amt += std::get<std::shared_ptr<commands::Command>>(program.back())->GetArgsAmt();
                     }  else if (token.type == tokenparser::TokenType::INTEGER) {
                         program.push_back(std::stoi(token.val));
+                        need_args_amt--;
                     } else if (token.type == tokenparser::TokenType::WORD) {
-                        if (label_convert.find(token.val) == label_convert.end()) {
-                            label_convert[token.val] = labelIndex++;
+                        if (need_args_amt == 0) {
+                            label_convert[token.val] = program.size();
+                        } else {
+                            need_args_amt--;
                         }
-                        program.push_back(label_convert[token.val]);
+                        program.push_back(0);
+                        labels_index_value.push_back(std::make_pair(program.size() - 1, token.val));
                     }
 
                     token = parser.parse();
                     tokens.push_back(token);
                 }
 
-                if (!check_begin_end(std::move(tokens))) {
-                    throw std::invalid_argument("Program must begin with BEGIN and end with END commands");
+                // write labels integers to program
+                for (auto label : labels_index_value) {
+                    if (label_convert.find(label.second) == label_convert.end()) {
+                        throw std::invalid_argument("Try to use unplaced label");
+                    }
+                    program[label.first] = label_convert[label.second];
                 }
+
+                //if (!check_begin_end(std::move(tokens))) { TODO add later (now removed because of funcs)
+                    //throw std::invalid_argument("Program must begin with BEGIN and end with END commands");
+                //}
 
                 if (!check_args_amount(std::move(program))) {
                     throw std::invalid_argument("Don't have correct args after command");
+                }
+
+                if (!check_tokens_undefined(std::move(tokens))) {
+                    throw std::invalid_argument("Got undefined text in program");
                 }
 
                 return program;
@@ -81,12 +99,21 @@ namespace preprocessor {
                 return firstNonDelim + 1 < tokens.size() && lastNonDelim - 1 >= 0 && tokens[firstNonDelim + 1].val == "BEGIN" && tokens[lastNonDelim - 1].val == "END";
             }
 
-            bool check_args_amount(const program_t&& program) {
+            bool check_tokens_undefined(const std::vector<tokenparser::Token>&& tokens) {
+                for (auto token : tokens) {
+                    if (token.type == tokenparser::TokenType::UNDEFINED) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            bool check_args_amount(const std::vector<std::variant<std::shared_ptr<commands::Command>, int>>&& program) {
                 for (int i = 0; i < program.size(); i++) {
                     if (std::holds_alternative<int>(program[i])) {
                         continue;
                     }
-                    if (std::get<commands::Command*>(program[i])->GetArgsAmt() == 1) {
+                    if (std::get<std::shared_ptr<commands::Command>>(program[i])->GetArgsAmt() == 1) {
                         if (i + 1 >= program.size() || !std::holds_alternative<int>(program[i + 1])) {
                             return false;
                         }
@@ -95,28 +122,28 @@ namespace preprocessor {
                 return true;
             }
 
-            std::map<std::string, commands::Command*> convert = {
-                {"BEGIN", new commands::Begin_c()},
-                {"END", new commands::End_c()},
-                {"PUSH", new commands::Push_c()},
-                {"POP", new commands::Pop_c()},
-                {"PUSHR", new commands::Pushr_c()},
-                {"POPR", new commands::Popr_c()},
-                {"ADD", new commands::Add_c()},
-                {"SUB", new commands::Sub_c()},
-                {"MUL", new commands::Mul_c()},
-                {"DIV", new commands::Div_c()},
-                {"OUT", new commands::Out_c()},
-                {"IN", new commands::In_c()},
-                {"JMP", new commands::Jmp_c()},
-                {"JEQ", new commands::Jeq_c()},
-                {"JNE", new commands::Jne_c()},
-                {"JA", new commands::Ja_c()},
-                {"JAE", new commands::Jae_c()},
-                {"JB", new commands::Jb_c()},
-                {"JBE", new commands::Jbe_c()},
-                {"CALL", new commands::Call_c()},
-                {"RET", new commands::Ret_c()}
+            std::map<std::string, std::shared_ptr<commands::Command>> convert = {
+                {"BEGIN", std::make_shared<commands::Begin_c>()},
+                {"END", std::make_shared<commands::End_c>()},
+                {"PUSH", std::make_shared<commands::Push_c>()},
+                {"POP", std::make_shared<commands::Pop_c>()},
+                {"PUSHR", std::make_shared<commands::Pushr_c>()},
+                {"POPR", std::make_shared<commands::Popr_c>()},
+                {"ADD", std::make_shared<commands::Add_c>()},
+                {"SUB", std::make_shared<commands::Sub_c>()},
+                {"MUL", std::make_shared<commands::Mul_c>()},
+                {"DIV", std::make_shared<commands::Div_c>()},
+                {"OUT", std::make_shared<commands::Out_c>()},
+                {"IN", std::make_shared<commands::In_c>()},
+                {"JMP", std::make_shared<commands::Jmp_c>()},
+                {"JEQ", std::make_shared<commands::Jeq_c>()},
+                {"JNE", std::make_shared<commands::Jne_c>()},
+                {"JA", std::make_shared<commands::Ja_c>()},
+                {"JAE", std::make_shared<commands::Jae_c>()},
+                {"JB", std::make_shared<commands::Jb_c>()},
+                {"JBE", std::make_shared<commands::Jbe_c>()},
+                {"CALL", std::make_shared<commands::Call_c>()},
+                {"RET", std::make_shared<commands::Ret_c>()}
             };
     };
 }

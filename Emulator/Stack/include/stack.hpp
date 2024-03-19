@@ -12,24 +12,24 @@ namespace myStack {
             }
 
             ~stack<T>() {
-                delete[] s;
+                delete[] arr;
             }
 
             stack<T>(const stack<T>& o) : ind(o.ind), cap(o.cap) {
-                s = new T[o.cap];
-                memcpy(s, o.s, ind * sizeof(T));
+                arr = new T[o.cap];
+                memcpy(arr, o.arr, ind * sizeof(T));
             }
 
-            stack<T>(stack<T>&& o) noexcept : ind(o.ind), cap(o.cap), s(o.s) {
-                o.s = nullptr;
+            stack<T>(stack<T>&& o) noexcept : ind(o.ind), cap(o.cap), arr(o.arr) {
+                o.arr = nullptr;
             }
 
             stack<T>& operator=(const stack<T>& o) {
                 ind = o.ind;
                 cap = o.cap;
 
-                s = new T[o.cap];
-                memcpy(s, o.s, ind * sizeof(T));
+                arr = new T[o.cap];
+                memcpy(arr, o.arr, ind * sizeof(T));
 
                 return *this;
             }
@@ -37,33 +37,37 @@ namespace myStack {
             stack<T>& operator=(stack<T>&& o) noexcept {
                 ind = o.ind;
                 cap = o.cap;
-                s = o.s;
+                arr = o.arr;
 
-                o.s = nullptr;
+                o.arr = nullptr;
 
                 return *this;
             }
 
             void resize() {
-                T* tmp = new T[this->cap * 2];
-                memcpy(tmp, this->s, ind * sizeof(T));
-                delete[] this->s;
-                this->s = tmp;
-                this->cap *= 2;
+                T* tmp = new T[cap * 2];
+                memcpy(tmp, arr, ind * sizeof(T));
+                delete[] arr;
+                arr = tmp;
+                cap *= 2;
+            }
+
+            int size() {
+                return ind;
             }
 
             void push(T& x) {
                 if (this->ind == this->cap) {
                     if (this->cap == 0) {
                         this->cap = 1;
-                        this->s = new T[1];
-                        this->s[this->ind++] = x;
+                        this->arr = new T[1];
+                        this->arr[this->ind++] = x;
                         return;
                     }
 
                     resize();
                 }
-                this->s[this->ind++] = x;
+                this->arr[this->ind++] = x;
             }
 
             void push(T&& x) {
@@ -71,22 +75,22 @@ namespace myStack {
             }
 
             T pop() {
-                if (ind <= 0 || s == nullptr) {
+                if (ind <= 0 || arr == nullptr) {
                     throw std::out_of_range("Try to pop from empty stack");
                 }
 
-                return s[--ind];
+                return arr[--ind];
             }
 
             T& top() {
-                if (s == nullptr || ind <= 0) {
+                if (arr == nullptr || ind <= 0) {
                     throw std::out_of_range("Try to get top from empty stack");
                 }
-                return s[ind - 1];
+                return arr[ind - 1];
             }
         private:
             int ind = 0;
             int cap = 0;
-            T* s = nullptr; // unique_pointer?
+            T* arr = nullptr;
     };
 }

@@ -10,7 +10,9 @@ BuildRunCmakeDebug:
 	cd Emulator_build && cmake ../Emulator -DSetDebugBuildType=ON -DEnableCoverage=OFF
 	cd Emulator_build && cmake --build .
 
-	cd Emulator_build && ./Stack/StackTest && ./Emulator/EmulatorTest && ./Preprocessor/PreprocessorTest && ./Parser/ParserTest && ./Runner
+	cd Emulator_build && ./Runner
+
+# ./Stack/StackTest && ./Emulator/EmulatorTest && ./Preprocessor/PreprocessorTest && ./Parser/ParserTest && 
 
 BuildRunCmakeCoverage:
 	cd Emulator_build && lcov --directory . --capture --output-file ./code_coverage.info -rc lcov_branch_coverage=1

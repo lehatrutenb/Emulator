@@ -1,0 +1,40 @@
+CountFactorial
+
+PUSH 1
+PUSHR reg1
+SUB
+
+POPR reg1
+PUSH 0
+PUSHR reg1
+
+JBE endFunc
+
+PUSHR reg1
+PUSHR reg0
+MUL
+POPR reg0
+
+CALL CountFactorial
+
+endFunc
+
+RET
+
+BEGIN
+
+IN
+PUSH 1
+ADD
+
+POPR reg1
+
+PUSH 1
+POPR reg0
+
+CALL CountFactorial
+
+PUSHR reg0
+OUT
+
+END
