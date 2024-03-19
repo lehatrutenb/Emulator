@@ -142,7 +142,8 @@ namespace preprocessor {
                 {"JB", std::make_shared<commands::Jb_c>()},
                 {"JBE", std::make_shared<commands::Jbe_c>()},
                 {"CALL", std::make_shared<commands::Call_c>()},
-                {"RET", std::make_shared<commands::Ret_c>()}
+                {"RET", std::make_shared<commands::Ret_c>()},
+                {"DEBUG", std::make_shared<commands::Debug_c>()}
             };
     };
 }

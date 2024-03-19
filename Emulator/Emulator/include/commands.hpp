@@ -212,4 +212,26 @@ class Ret_c : public Command {
     };
 };
 
+class Debug_c : public Command {
+    int GetArgsAmt() override { return 0; }
+    void Do(runtime::State&& state) override {
+        std::cout << std::endl;
+        for (int i = 0; i < 6; i++) {
+            std::cout << "reg" << i << ": " << state.regs[i] << std::endl;
+        }
+
+        std::cout << std::endl << "stack:" << std::endl;
+        std::vector<int> tmp_stack;
+        while (state.stack.size() != 0) {
+            tmp_stack.push_back(state.stack.pop());
+            std::cout << tmp_stack.back();
+        }
+        while (!tmp_stack.empty()) {
+            state.stack.push(tmp_stack.back());
+            tmp_stack.pop_back();
+        }
+        std::cout << '\n' << std::endl;
+    }
+};
+
 }
