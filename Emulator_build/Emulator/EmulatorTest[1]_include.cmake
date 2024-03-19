@@ -1,0 +1,5 @@
+if(EXISTS "/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Emulator/EmulatorTest[1]_tests.cmake")
+  include("/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Emulator/EmulatorTest[1]_tests.cmake")
+else()
+  add_test(EmulatorTest_NOT_BUILT EmulatorTest_NOT_BUILT)
+endif()

@@ -1,0 +1,5 @@
+if(EXISTS "/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser/ParserTest[1]_tests.cmake")
+  include("/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser/ParserTest[1]_tests.cmake")
+else()
+  add_test(ParserTest_NOT_BUILT ParserTest_NOT_BUILT)
+endif()
