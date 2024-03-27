@@ -1,7 +1,0 @@
-add_test([=[CheckValsRandomString.0]=]  [==[/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser/ParserTest]==] [==[--gtest_filter=CheckValsRandomString.0]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[CheckValsRandomString.0]=]  PROPERTIES WORKING_DIRECTORY [==[/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser]==] SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test([=[CheckTypesRandomString.0]=]  [==[/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser/ParserTest]==] [==[--gtest_filter=CheckTypesRandomString.0]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[CheckTypesRandomString.0]=]  PROPERTIES WORKING_DIRECTORY [==[/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser]==] SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test([=[CheckTypesIntegers.1]=]  [==[/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser/ParserTest]==] [==[--gtest_filter=CheckTypesIntegers.1]==] --gtest_also_run_disabled_tests)
-set_tests_properties([=[CheckTypesIntegers.1]=]  PROPERTIES WORKING_DIRECTORY [==[/Users/lehatrutenb/Desktop/hse/1_course/C++/Emulator/Emulator/Emulator_build/Parser]==] SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set(  ParserTest_TESTS CheckValsRandomString.0 CheckTypesRandomString.0 CheckTypesIntegers.1)
